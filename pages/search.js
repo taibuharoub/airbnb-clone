@@ -3,7 +3,8 @@ import { format } from "date-fns";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-function Search() {
+function Search({ searchResults }) {
+  console.log(searchResults);
   const router = useRouter();
   // console.log(router.query);
   const { location, startDate, endDate, numberOfGuests } = router.query;
@@ -14,7 +15,9 @@ function Search() {
 
   return (
     <div>
-      <Header />
+      <Header
+        placeholder={`${location} | ${range} | ${numberOfGuests} guests`}
+      />
 
       <main className="flex">
         <section className="flex-grow pt-14 px-6">
@@ -47,3 +50,16 @@ function Search() {
 }
 
 export default Search;
+
+export async function getServerSideProps() {
+  // alernate url: https://links.papareact.com/isz
+  const searchResults = await fetch("https://jsonkeeper.com/b/5NPS").then(
+    (res) => res.json()
+  );
+
+  return {
+    props: {
+      searchResults,
+    },
+  };
+}

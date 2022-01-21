@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   SearchIcon,
   GlobeAltIcon,
@@ -18,6 +19,8 @@ function Header() {
   const [endDate, setEndDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(1);
 
+  const router = useRouter();
+
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
@@ -30,6 +33,22 @@ function Header() {
     setEndDate(ranges.selection.endDate);
   };
 
+  const resetInut = () => {
+    setSearchInput("");
+  };
+
+  const search = () => {
+    router.push({
+      pathname: "/search",
+      query: {
+        location: searchInput,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        numberOfGuests,
+      },
+    });
+  };
+
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md py-5 px-5 md:px-10">
       {/* left  */}
@@ -37,7 +56,10 @@ function Header() {
       {/* objectfit stops the image from changing its aspect ratio */}
       {/* making the parent div relative will make the Image relative to the size of the container/div
       (making the image fill the space of the div), if the container is small the will become small */}
-      <div className="relative flex items-center h-10 cursor-pointer my-auto">
+      <div
+        onClick={() => router.push("/")}
+        className="relative flex items-center h-10 cursor-pointer my-auto"
+      >
         <Image
           src="https://links.papareact.com/qd3"
           layout="fill"
@@ -93,6 +115,16 @@ function Header() {
               onChange={(e) => setNumberOfGuests(e.target.value)}
               className="w-12 pl-2 text-lg outline-none text-red-400"
             />
+          </div>
+
+          <div className="flex">
+            {/* flex-grow on both will give it equal spacing  */}
+            <button onClick={resetInut} className="flex-grow text-gray-500">
+              Cancel
+            </button>
+            <button onClick={search} className="flex-grow text-red-400">
+              Search
+            </button>
           </div>
         </div>
       )}

@@ -1,15 +1,29 @@
+import { useRouter } from "next/router";
+import { format } from "date-fns";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function Search() {
+  const router = useRouter();
+  // console.log(router.query);
+  const { location, startDate, endDate, numberOfGuests } = router.query;
+
+  const formatedStartDate = format(new Date(startDate), "dd MMMM yy");
+  const formatedEndDate = format(new Date(endDate), "dd MMMM yy");
+  const range = `${formatedStartDate} - ${formatedEndDate}`;
+
   return (
     <div>
       <Header />
 
       <main className="flex">
         <section className="flex-grow pt-14 px-6">
-          <p className="text-xs">300+ Stays for 5 number of guests</p>
-          <h1 className="text-3xl font-semibold mt-2 mb-6">Stays in Mars</h1>
+          <p className="text-xs">
+            300+ Stays - {range} - for {numberOfGuests} guests
+          </p>
+          <h1 className="text-3xl font-semibold mt-2 mb-6">
+            Stays in {location}
+          </h1>
 
           <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-500 whitespace-nowrap">
             {/* <p

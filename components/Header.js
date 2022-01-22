@@ -38,6 +38,9 @@ function Header({ placeholder }) {
   };
 
   const search = () => {
+    if (searchInput.trim().length === 0) {
+      return;
+    }
     router.push({
       pathname: "/search",
       query: {
@@ -78,7 +81,10 @@ function Header({ placeholder }) {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
-        <SearchIcon className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2" />
+        <SearchIcon
+          onClick={search}
+          className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2"
+        />
       </div>
 
       {/* left  */}

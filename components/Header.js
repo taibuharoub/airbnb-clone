@@ -117,12 +117,20 @@ function Header({ placeholder }) {
             />
           </div>
 
-          <div className="flex">
+          <div className="flex bg-white pt-4  shadow-sm rounded-b-lg">
             {/* flex-grow on both will give it equal spacing  */}
-            <button onClick={resetInut} className="flex-grow text-gray-500">
+            <button
+              onClick={resetInut}
+              className="flex-grow text-gray-500 rounded-lg bg-white hover:bg-red-400 
+              hover:shadow-md p-2 mr-1 transiton duration-300 hover:text-white"
+            >
               Cancel
             </button>
-            <button onClick={search} className="flex-grow text-red-400">
+            <button
+              onClick={search}
+              className="flex-grow text-red-400 rounded-lg bg-white hover:shadow-md 
+              hover:bg-red-400 p-2 transiton duration-300 hover:text-white"
+            >
               Search
             </button>
           </div>
